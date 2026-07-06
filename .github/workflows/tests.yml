@@ -34,7 +34,7 @@ jobs:
         uses: gitleaks/gitleaks-action@v2.13.0
 
       - name: 🔬 Run Semgrep SAST
-        uses: returntocorp/semgrep-action@v1.17.0
+        uses: semgrep/semgrep-action@v1
         with:
           config: "auto"
 
