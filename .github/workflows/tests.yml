@@ -30,6 +30,14 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: 🔍 Run Gitleaks
+        uses: gitleaks/gitleaks-action@v2.13.0
+
+      - name: 🔬 Run Semgrep SAST
+        uses: semgrep/semgrep-action@v1
+        with:
+          config: "auto"
+
       - name: Setup PHP
         uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # v2
         with:
@@ -43,10 +51,16 @@ jobs:
           node-version: '22'
 
       - name: Install Node Dependencies
-        run: npm i
+        run: npm ci
+
+      - name: 🔒NPM audit
+        run: npm audit --audit-level=high
 
       - name: Install Dependencies
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: 🔒Composer Audit
+        run: composer audit
 
       - name: Copy Environment File
         run: cp .env.example .env
