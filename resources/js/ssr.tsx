@@ -1,6 +1,6 @@
 import React from 'react';
 import { createInertiaApp } from '@inertiajs/react';
-import { createServer } from '@inertiajs/react/server';
+import createServer from '@inertiajs/react/server';
 import { renderToString } from 'react-dom/server';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { Toaster } from '@/components/ui/sonner';
