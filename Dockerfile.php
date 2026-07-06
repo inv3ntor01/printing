@@ -58,7 +58,7 @@ RUN apk add --no-cache nodejs npm
 WORKDIR /var/www/html
 COPY --chown=www-data:www-data . .
 RUN --mount=type=secret,id=dotenv,target=/var/www/html/.env \
-    npm ci && npm run build
+    npm ci && npm run build:ssr
 
 ############################################
 # Production Image
@@ -78,6 +78,7 @@ COPY --chown=www-data:www-data . /var/www/html
 
 # Overlay assets built inside Docker (correct VITE_* baking, no host pollution)
 COPY --from=assets --chown=www-data:www-data /var/www/html/public/build /var/www/html/public/build
+COPY --from=assets --chown=www-data:www-data /var/www/html/bootstrap/ssr /var/www/html/bootstrap/ssr
 
 # Ensure storage and bootstrap are owned by www-data
 # Sub-paths will be handled by K8s volume mounts
