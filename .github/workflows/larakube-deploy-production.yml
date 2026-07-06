@@ -184,3 +184,4 @@ jobs:
           kubectl rollout status deployment/web -n printing-production --timeout=300s
           kubectl rollout status deployment/horizon -n printing-production --timeout=300s
           kubectl rollout status deployment/reverb -n printing-production --timeout=300s
+          kubectl rollout status deployment/node-ssr -n printing-production --timeout=300s
