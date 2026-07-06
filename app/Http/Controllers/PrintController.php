@@ -7,7 +7,7 @@ use Inertia\Inertia;
 
 class PrintController extends Controller
 {
-    public function index()
+    public function index() : \Inertia\Response
     {
         return Inertia::render('print/index');
     }
