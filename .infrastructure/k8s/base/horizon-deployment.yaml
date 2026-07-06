@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: horizon
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: horizon
+  template:
+    metadata:
+      labels:
+        app: horizon
+    spec:
+      # fsGroup so www-data can write the mounted PVC on block storage (DOKS etc.);
+      # harmless on k3s local-path. See base/deployment.blade.php for the rationale.
+      securityContext:
+        fsGroup: 33
+      initContainers:
+        - name: wait-for-deps
+          image: printing:latest
+          imagePullPolicy: IfNotPresent
+          command: ["sh", "-c", "until curl -sf http://web/up && nc -z -v -w 1 postgres 5432 && nc -z -v -w 1 redis 6379; do echo 'Waiting for dependencies...'; sleep 2; done;"]
+      containers:
+        - name: php
+          image: printing:latest
+          imagePullPolicy: IfNotPresent
+          args: ["php", "artisan", "horizon"]
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "128Mi"
+            limits:
+              cpu: "1"
+              memory: "1Gi"
+          envFrom:
+            - configMapRef:
+                name: laravel-config
+            - secretRef:
+                name: laravel-secrets
+          env:
+            - name: AUTORUN_ENABLED
+              value: "false"
+            - name: AUTORUN_LARAVEL_MIGRATION
+              value: "false"
+          volumeMounts:
+            - name: storage
+              mountPath: /var/www/html/storage/logs
+              subPath: logs
+            - name: storage
+              mountPath: /var/www/html/bootstrap/cache
+              subPath: bootstrap/cache
+            - name: storage
+              mountPath: /var/www/html/storage/framework/sessions
+              subPath: framework/sessions
+            - name: storage
+              mountPath: /var/www/html/storage/framework/views
+              subPath: framework/views
+            - name: storage
+              mountPath: /var/www/html/storage/framework/cache
+              subPath: framework/cache
+            - name: storage
+              mountPath: /var/www/html/storage/app/public
+              subPath: app/public
+          livenessProbe:
+            exec:
+              command: ["healthcheck-horizon"]
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 10
+          readinessProbe:
+            exec:
+              command: ["healthcheck-horizon"]
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 10
+      volumes:
+        - name: storage
+          persistentVolumeClaim:
+            claimName: printing-laravel-storage-pvc

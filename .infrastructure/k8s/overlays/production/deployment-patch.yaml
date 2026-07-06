@@ -1,0 +1,104 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: php
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "128Mi"
+            limits:
+              cpu: "1"
+              memory: "1Gi"
+      imagePullSecrets:
+        - name: ghcr-login
+
+      initContainers:
+        - name: wait-for-deps
+          image: printing:latest
+
+          command: ["sh", "-c", "until nc -z -v -w 1 postgres 5432 && nc -z -v -w 1 redis 6379; do echo 'Waiting for dependencies...'; sleep 2; done;"]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: horizon
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: php
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "128Mi"
+            limits:
+              cpu: "1"
+              memory: "1Gi"
+      imagePullSecrets:
+        - name: ghcr-login
+
+      initContainers:
+        - name: wait-for-deps
+          image: printing:latest
+
+          command: ["sh", "-c", "until curl -sf http://web/up && nc -z -v -w 1 postgres 5432 && nc -z -v -w 1 redis 6379; do echo 'Waiting for dependencies...'; sleep 2; done;"]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reverb
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: php
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "128Mi"
+            limits:
+              cpu: "1"
+              memory: "1Gi"
+      imagePullSecrets:
+        - name: ghcr-login
+
+      initContainers:
+        - name: wait-for-deps
+          image: printing:latest
+
+          command: ["sh", "-c", "until curl -sf http://web/up && nc -z -v -w 1 postgres 5432 && nc -z -v -w 1 redis 6379; do echo 'Waiting for dependencies...'; sleep 2; done;"]
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: scheduler
+spec:
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          imagePullSecrets:
+            - name: ghcr-login
+          initContainers:
+            - name: wait-for-deps
+              command: ["sh", "-c", "until curl -sf http://web/up && nc -z -v -w 1 postgres 5432 && nc -z -v -w 1 redis 6379; do echo 'Waiting for dependencies...'; sleep 2; done;"]
+          containers:
+            - name: php
+              resources:
+                requests:
+                  cpu: "50m"
+                  memory: "128Mi"
+                limits:
+                  cpu: "1"
+                  memory: "1Gi"

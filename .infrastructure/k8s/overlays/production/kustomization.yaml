@@ -1,0 +1,24 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: printing-production
+
+resources:
+  - app-volumes.yaml
+  - ssr-deployment.yaml
+  - minio-volumes.yaml
+  - meilisearch-volumes.yaml
+  - postgres-volumes.yaml
+  - ../../base
+  - namespace.yaml
+  - config-patch.yaml
+
+# Add production-specific patches here
+patches:
+  - path: ingress-patch.yaml
+  - path: deployment-patch.yaml
+
+images:
+  - name: printing:latest
+    newName: printing
+    newTag: production-latest
