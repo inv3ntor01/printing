@@ -30,7 +30,7 @@ server: {
                 }),
             ],
         }),
-        inertia({ ssr: false }),
+        inertia(),
         react({
             babel: {
                 plugins: ['babel-plugin-react-compiler'],
