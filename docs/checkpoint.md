@@ -1,50 +1,24 @@
 # Session: Tue Jul 7 2026
 
 ## Accomplished
-<<<<<<< Updated upstream
-- Task 1 (Routing): `/print` route → `PrintController::index` — **DONE**
-- Task 2 (Controller): `PrintController` with `Inertia::render('print/index')` — **DONE**
-- Task 3 (Page): `resources/js/pages/print/index.tsx` — **DONE**
-- SSR crash fixed: `inertia({ ssr: false })` → enabled SSR + created `resources/js/ssr.tsx`
-- SSR imports: `createServer` is default export from `@inertiajs/react/server`
-- CI/CD security hardening:
-  - Dependabot for npm + composer added
-  - `npm audit --audit-level=high` in tests.yml
-  - `composer audit` in tests.yml
-  - Gitleaks (secret scanning) added
-  - Semgrep (SAST) added
+### Home Page Feature (`feature/home-page`)
 
-## Pending
-- Gitleaks v3 requires `GITHUB_TOKEN` env var + `pull-requests: read` permission — not yet fixed/committed
-- Trivy container image scan not yet added to deploy workflow
+- **Data Refactor**: Moved hardcoded content from React components to `HomeController` — passes `services`, `stats`, `advantages`, `cta` via `Inertia::render()`
+- **Hero Section**: Stats bar (24/7, 0.02mm, 500+, 99.9%) sourced from controller
+- **Services Section**: 6 actual services (Document Printing, Sticker Paper, Photo Printing, Document Delivery, Typing, Business Cards) with Lucide icons
+- **Advantage Section**: 3 cards (Quality, Velocity, Infrastructure) from controller
+- **CTA Section**: "Ready to scale your production?" with navy background and cyan action button
+- **Route fix**: Replaced broken `route('print')` call with Wayfinder `print().url`
+- **Layout**: Nav "Services" link now points to `/services` route
+- **Services Page** (`/services`): `ServicesController` + `services.tsx` with 6 service cards in 3-column grid
 
 ## Git state
-- Branch: `feature/task/print-controller` (not yet finished at shutdown)
-- Tests: 48/48 passing on CI, 26/48 passing on pod (CSRF env issue)
-- Live at: `https://staging-printing.vbtechsolutions.site`
-
-## Next session
-1. Fix Gitleaks permissions in tests.yml
-2. Commit, push, finish feature, merge to main
-3. Decide next Laravel fundamentals task
-=======
-### Hotfix: CI/CD pipeline fixes (`hotfix/ci-versions`)
-- **Gitleaks**: Fixed permissions (`pull-requests: read`) + env var (`GITHUB_TOKEN`) — now passing
-- **Semgrep**: Pinned `semgrep/semgrep-action@v1.1.0` — stable
-- **Trivy**: Pinned `aquasecurity/trivy-action@v0.30.0` with correct sub-action — now passing
-- **Linter**: PHP version aligned (`8.4` → `8.5`)
-- **ESLint**: Downgraded `eslint` and `@eslint/js` from v10 to v9 for `eslint-plugin-import` compatibility
-- **npm**: Added `--legacy-peer-deps` to `lint.yml` install step
-- **Checkout**: Added `fetch-depth: 0` to `tests.yml` for Gitleaks full history scan
-
-## Git state
-- Branch: `main` (hotfix merged via PR #19)
-- Linter: ✅ passing
-- Tests: ✅ passing (both 8.4 and 8.5 matrix)
-- Deploy: ✅ passing
-- Live at: `https://staging-printing.vbtechsolutions.site`
+- Branch: `feature/home-page` (from `develop`)
+- Untracked: HomeController, ServicesController, marketing components, home.tsx, services.tsx
+- Modified: routes/web.php, resources/js/app.tsx
 
 ## Pending / Next
-- Continue remaining 5 Laravel fundamentals tasks
-- Each on its own feature branch via git-flow
->>>>>>> Stashed changes
+- Build Equipment & Tech page
+- Build Request a Quote page with form
+- Replace remaining `href="#"` placeholder links with named routes
+- Merge `feature/home-page` → `develop`
