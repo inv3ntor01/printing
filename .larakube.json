@@ -33,6 +33,7 @@
             "managed": [],
             "plex": [],
             "hosts": [],
+            "additionalWebHosts": [],
             "addFeatures": [],
             "excludeFeatures": [],
             "namespace": null,
@@ -57,6 +58,7 @@
             "hosts": {
                 "web": "staging-printing.vbtechsolutions.site"
             },
+            "additionalWebHosts": [],
             "addFeatures": [],
             "excludeFeatures": [],
             "namespace": null,
