@@ -35,3 +35,5 @@ yarn-error.log
 .larakube.local.json
 # LaraKube manifest fingerprints (reproducible — detects hand-edits, not for sharing)
 .infrastructure/k8s/.larakube-sigs.json
+
+.env.*
