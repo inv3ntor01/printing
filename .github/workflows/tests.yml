@@ -16,6 +16,7 @@ on:
 
 permissions:
   contents: read
+  pull-requests: read
 
 jobs:
   ci:
@@ -31,6 +32,8 @@ jobs:
           persist-credentials: false
 
       - name: 🔍 Run Gitleaks
+        env:
+          GITLEAKS_TOKEN: ${{ secrets.GITLEAKS_TOKEN }}
         uses: gitleaks/gitleaks-action@v3.0.0
 
       - name: 🔬 Run Semgrep SAST
