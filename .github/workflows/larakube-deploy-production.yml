@@ -110,7 +110,7 @@ jobs:
           cache-to: type=gha,mode=max
       
       - name: 🔬 Scan image with Trivy
-        uses: aquasecurity/trivy-action@v0.30.0
+        uses: aquasecurity/trivy-action@master
         with:
           image-ref: ${{ env.REGISTRY_HOST }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
           format: table
