@@ -1,24 +1,20 @@
-# Session: Tue Jul 7 2026
+# Session: Tue Jul 8 2026
 
 ## Accomplished
-### Home Page Feature (`feature/home-page`)
+### Payment Status Feature
 
-- **Data Refactor**: Moved hardcoded content from React components to `HomeController` — passes `services`, `stats`, `advantages`, `cta` via `Inertia::render()`
-- **Hero Section**: Stats bar (24/7, 0.02mm, 500+, 99.9%) sourced from controller
-- **Services Section**: 6 actual services (Document Printing, Sticker Paper, Photo Printing, Document Delivery, Typing, Business Cards) with Lucide icons
-- **Advantage Section**: 3 cards (Quality, Velocity, Infrastructure) from controller
-- **CTA Section**: "Ready to scale your production?" with navy background and cyan action button
-- **Route fix**: Replaced broken `route('print')` call with Wayfinder `print().url`
-- **Layout**: Nav "Services" link now points to `/services` route
-- **Services Page** (`/services`): `ServicesController` + `services.tsx` with 6 service cards in 3-column grid
+- **Migration**: Added `payment_status` column (string, default `unpaid`) to `orders` table — re-created and ran successfully after the initial migration failed silently.
+- **Model**: `Order` model updated with `payment_status` in `$fillable` and a `string` cast.
+- **Admin OrderController**: Validation accepts `unpaid`, `partial`, `paid`.
+- **Admin Order Show** (`admin/orders/show.tsx`): Payment row in details card, `payment_status` dropdown in update form, Badge display.
+- **Admin Order Index** (`admin/orders/index.tsx`): Payment column with Badge.
+- **Admin Dashboard** (`dashboard.tsx`): `payment_status` added to recent orders data (both controller and table).
+- **Customer Dashboard** (`dashboard.tsx`): Dedicated Payment column with Badge (always visible). Controller passes `payment_status` to the frontend.
+- **DashboardController**: Fixed — was not including `payment_status` in the mapped order arrays for either admin or customer views.
 
 ## Git state
-- Branch: `feature/home-page` (from `develop`)
-- Untracked: HomeController, ServicesController, marketing components, home.tsx, services.tsx
-- Modified: routes/web.php, resources/js/app.tsx
+- Branch: current working branch
+- Changes to: DashboardController, dashboard.tsx, admin/orders/index.tsx, admin/orders/show.tsx, Order model, OrderController, migrations
 
 ## Pending / Next
-- Build Equipment & Tech page
-- Build Request a Quote page with form
-- Replace remaining `href="#"` placeholder links with named routes
-- Merge `feature/home-page` → `develop`
+- (none)
