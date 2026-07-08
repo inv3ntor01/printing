@@ -25,6 +25,7 @@ class Order extends Model
         'status',
         'admin_notes',
         'quote_amount',
+        'payment_status',
         'quoted_at',
     ];
 

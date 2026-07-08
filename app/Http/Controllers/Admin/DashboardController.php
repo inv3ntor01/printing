@@ -35,6 +35,7 @@ class DashboardController extends Controller
             'job_type' => $o->job_type,
             'status' => $o->status,
             'quote_amount' => $o->quote_amount,
+            'payment_status' => $o->payment_status,
             'created_at' => $o->created_at->diffForHumans(),
         ]);
 
@@ -77,6 +78,7 @@ class DashboardController extends Controller
                 'quantity' => $o->quantity,
                 'status' => $o->status,
                 'quote_amount' => $o->quote_amount,
+                'payment_status' => $o->payment_status,
                 'created_at' => $o->created_at->format('M d, Y'),
             ]);
 

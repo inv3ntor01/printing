@@ -32,6 +32,7 @@ class OrderController extends Controller
             'status' => ['required', 'string', 'in:pending,quoted,approved,in_production,shipping,delivered,cancelled'],
             'admin_notes' => ['nullable', 'string', 'max:2000'],
             'quote_amount' => ['nullable', 'numeric', 'min:0'],
+            'payment_status' => ['required', 'string', 'in:unpaid,partial,paid'],
         ]);
 
         $order->update($validated + ['quoted_at' => $validated['quote_amount'] ? now() : $order->quoted_at]);

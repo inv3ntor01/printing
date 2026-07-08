@@ -3,6 +3,7 @@ import Heading from '@/components/heading';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Label } from '@/components/ui/label';
 
 type Order = {
     id: number;
@@ -18,6 +19,7 @@ type Order = {
     status: string;
     admin_notes: string | null;
     quote_amount: string | null;
+    payment_status: string;
     quoted_at: string | null;
     created_at: string;
     updated_at: string;
@@ -49,6 +51,7 @@ export default function Show({ order }: { order: Order }) {
         status: order.status,
         admin_notes: order.admin_notes ?? '',
         quote_amount: order.quote_amount ?? '',
+        payment_status: order.payment_status,
     });
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -133,6 +136,14 @@ export default function Show({ order }: { order: Order }) {
                                         {order.quote_amount ? `$${order.quote_amount}` : 'Not quoted'}
                                     </dd>
                                 </div>
+                                <div className='flex justify-between'>
+                                    <dt className='text-muted-foreground'>Payment Status</dt>
+                                    <dd className='font-medium'>
+                                        <Badge variant={order.payment_status === 'paid' ? 'default' : order.payment_status === 'partial' ? 'secondary' : 'destructive'}>
+                                            {(order.payment_status ?? 'unpaid').replace(/_/g, ' ')}
+                                        </Badge>
+                                    </dd>
+                                </div>
                                 {order.original_filename && (
                                     <div className="flex justify-between">
                                         <dt className="text-muted-foreground">Uploaded File</dt>
@@ -188,6 +199,19 @@ export default function Show({ order }: { order: Order }) {
                                     onChange={(e) => setData('quote_amount', e.target.value)}
                                     className="w-full rounded border border-input bg-background px-3 py-2 text-sm"
                                 />
+                                <div>
+                                    <Label className='mb-1 block text-sm font-medium'>Payment Status</Label>
+                                    <select
+                                        value={data.payment_status}
+                                        onChange={(e) => setData('payment_status', e.target.value)}
+                                        className='w-full rounded border border-input bg-background px-3 py-2 text-sm'
+                                    >
+                                        <option value='unpaid'>Unpaid</option>
+                                        <option value='partial'>Partial</option>
+                                        <option value='paid'>Paid</option>
+                                    </select>
+                                    {errors.payment_status && <p className='mt-1 text-xs text-red-500'>{errors.payment_status}</p>}
+                                </div>
                                 {errors.quote_amount && <p className="mt-1 text-xs text-red-500">{errors.quote_amount}</p>}
                             </div>
                         </div>

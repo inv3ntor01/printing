@@ -12,6 +12,7 @@ type Order = {
     quantity: number;
     status: string;
     quote_amount: string | null;
+    payment_status?: string;
     created_at: string;
 };
 
@@ -57,6 +58,7 @@ export default function Index({ orders: { data, current_page, last_page } }: { o
                                     <th className="px-4 py-3 font-medium">Job Type</th>
                                     <th className="px-4 py-3 font-medium">Qty</th>
                                     <th className="px-4 py-3 font-medium">Amount</th>
+                                    <th className="px-4 py-3 font-medium">Payment</th>
                                     <th className="px-4 py-3 font-medium">Status</th>
                                     <th className="px-4 py-3 font-medium">Date</th>
                                     <th className="px-4 py-3 font-medium">Actions</th>
@@ -74,6 +76,11 @@ export default function Index({ orders: { data, current_page, last_page } }: { o
                                         <td className="px-4 py-3">{order.quantity}</td>
                                         <td className="px-4 py-3">
                                             {order.quote_amount ? `$${order.quote_amount}` : '—'}
+                                        </td>
+                                        <td className="px-4 py-3">
+                                            <Badge variant={order.payment_status === 'paid' ? 'default' : order.payment_status === 'partial' ? 'secondary' : 'destructive'}>
+                                                {order.payment_status?.replace(/_/g, ' ')}
+                                            </Badge>
                                         </td>
                                         <td className="px-4 py-3">
                                             <Badge variant={statusVariant[order.status] ?? 'secondary'}>

@@ -11,6 +11,7 @@ type Order = {
     quantity: number;
     status: string;
     quote_amount: string | null;
+    payment_status?: string;
     created_at: string;
     name?: string;
 };
@@ -207,13 +208,14 @@ function CustomerDashboard({ orders, active_requests }: CustomerProps) {
                                 <th className='px-6 py-4 font-semibold'>Date</th>
                                 <th className='px-6 py-4 font-semibold'>Status</th>
                                 <th className='px-6 py-4 font-semibold'>Total</th>
+                                <th className='px-6 py-4 font-semibold'>Payment</th>
                                 <th className='px-6 py-4 font-semibold text-right'>Actions</th>
                             </tr>
                         </thead>
                         <tbody className='divide-y'>
                             {orders.length === 0 ? (
                                 <tr>
-                                    <td colSpan={4} className='px-6 py-8 text-center text-muted-foreground'>
+                                    <td colSpan={6} className='px-6 py-8 text-center text-muted-foreground'>
                                         No orders yet.
                                     </td>
                                 </tr>
@@ -225,6 +227,14 @@ function CustomerDashboard({ orders, active_requests }: CustomerProps) {
                                         <td className='px-6 py-4'>
                                             <Badge variant={statusVariant[order.status] ?? 'secondary'}>
                                                 {order.status.replace(/_/g, ' ')}
+                                            </Badge>
+                                        </td>
+                                        <td className='px-6 py-4'>
+                                            {order.quote_amount ? `$${Number(order.quote_amount).toLocaleString()}` : '—'}
+                                        </td>
+                                        <td className='px-6 py-4'>
+                                            <Badge variant={order.payment_status === 'paid' ? 'default' : order.payment_status === 'partial' ? 'secondary' : 'destructive'}>
+                                                {order.payment_status?.replace(/_/g, ' ') ?? 'unpaid'}
                                             </Badge>
                                         </td>
                                         <td className='px-6 py-4 text-right'>
