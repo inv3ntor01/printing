@@ -19,15 +19,13 @@ type Service = {
 
 type PaginatedData = {
     data: Service[];
-    meta: {
-        current_page: number;
-        last_page: number;
-        per_page: number;
-        total: number;
-    };
+    current_page: number;
+    last_page: number;
+    per_page: number;
+    total: number;
 };
 
-export default function Index({ services: { data, meta } }: { services: PaginatedData }) {
+export default function Index({ services: { data, current_page, last_page } }: { services: PaginatedData }) {
     return (
         <>
             <Head title="Services" />
@@ -96,18 +94,18 @@ export default function Index({ services: { data, meta } }: { services: Paginate
                     </div>
                 </Card>
 
-                {meta.last_page > 1 && (
+                {last_page > 1 && (
                     <div className="flex items-center justify-center gap-2">
-                        {meta.current_page > 1 && (
-                            <Link href={services.index({ query: { page: meta.current_page - 1 } })}>
+                        {current_page > 1 && (
+                            <Link href={services.index({ query: { page: current_page - 1 } })}>
                                 <Button variant="outline" size="sm">Previous</Button>
                             </Link>
                         )}
                         <span className="text-sm text-muted-foreground">
-                            Page {meta.current_page} of {meta.last_page}
+                            Page {current_page} of {last_page}
                         </span>
-                        {meta.current_page < meta.last_page && (
-                            <Link href={services.index({ query: { page: meta.current_page + 1 } })}>
+                        {current_page < last_page && (
+                            <Link href={services.index({ query: { page: current_page + 1 } })}>
                                 <Button variant="outline" size="sm">Next</Button>
                             </Link>
                         )}

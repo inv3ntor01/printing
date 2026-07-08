@@ -1,9 +1,9 @@
-import { Link } from '@inertiajs/react';
-import { BookOpen, FolderGit2, LayoutGrid } from 'lucide-react';
+import { Link, usePage } from '@inertiajs/react';
+import { FileText, Headphones, LayoutGrid, Plus } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
-import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
+import { Button } from '@/components/ui/button';
 import {
     Sidebar,
     SidebarContent,
@@ -13,31 +13,39 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { dashboard } from '@/routes';
+import { dashboard, requestQuote } from '@/routes';
 import type { NavItem } from '@/types';
 
-const mainNavItems: NavItem[] = [
+const adminNavItems: NavItem[] = [
     {
         title: 'Dashboard',
         href: dashboard(),
         icon: LayoutGrid,
     },
+    {
+        title: 'Orders',
+        href: '/admin/orders',
+        icon: FileText,
+    },
 ];
 
-const footerNavItems: NavItem[] = [
+const customerNavItems: NavItem[] = [
     {
-        title: 'Repository',
-        href: 'https://github.com/laravel/react-starter-kit',
-        icon: FolderGit2,
+        title: 'Dashboard',
+        href: dashboard(),
+        icon: LayoutGrid,
     },
     {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#react',
-        icon: BookOpen,
+        title: 'Support',
+        href: '/contact-us',
+        icon: Headphones,
     },
 ];
 
 export function AppSidebar() {
+    const { auth } = usePage().props as { auth: { user: { id: number; name: string; email: string } | null; is_admin: boolean } };
+    const isAdmin = auth.is_admin;
+
     return (
         <Sidebar collapsible="icon" variant="inset">
             <SidebarHeader>
@@ -53,11 +61,20 @@ export function AppSidebar() {
             </SidebarHeader>
 
             <SidebarContent>
-                <NavMain items={mainNavItems} />
+                <NavMain items={isAdmin ? adminNavItems : customerNavItems} />
             </SidebarContent>
 
             <SidebarFooter>
-                <NavFooter items={footerNavItems} className="mt-auto" />
+                {!isAdmin && (
+                    <div className="px-3 pb-2">
+                        <Link href={requestQuote().url}>
+                            <Button className="w-full bg-[#06b6d4] hover:bg-[#0891b2] text-white gap-2">
+                                <Plus className="size-4" />
+                                New Request
+                            </Button>
+                        </Link>
+                    </div>
+                )}
                 <NavUser />
             </SidebarFooter>
         </Sidebar>
