@@ -7,10 +7,11 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class QuoteController extends Controller
 {
-    public function index(): \Inertia\Response
+    public function index(): Response
     {
         $jobTypes = [
             'Document Printing',

@@ -1,8 +1,8 @@
 import { Head, Link, useForm } from '@inertiajs/react';
 import Heading from '@/components/heading';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Label } from '@/components/ui/label';
 
 type Order = {
@@ -36,7 +36,10 @@ const statusOptions = [
     'cancelled',
 ];
 
-const statusVariant: Record<string, 'default' | 'secondary' | 'destructive' | 'outline'> = {
+const statusVariant: Record<
+    string,
+    'default' | 'secondary' | 'destructive' | 'outline'
+> = {
     pending: 'secondary',
     quoted: 'default',
     approved: 'default',
@@ -78,26 +81,42 @@ export default function Show({ order }: { order: Order }) {
                 <div className="grid gap-6 lg:grid-cols-2">
                     <Card>
                         <div className="p-6">
-                            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+                            <h3 className="mb-4 text-sm font-semibold tracking-wider text-muted-foreground uppercase">
                                 Customer Information
                             </h3>
                             <dl className="space-y-3 text-sm">
                                 <div className="flex justify-between">
-                                    <dt className="text-muted-foreground">Name</dt>
-                                    <dd className="font-medium">{order.name}</dd>
+                                    <dt className="text-muted-foreground">
+                                        Name
+                                    </dt>
+                                    <dd className="font-medium">
+                                        {order.name}
+                                    </dd>
                                 </div>
                                 <div className="flex justify-between">
-                                    <dt className="text-muted-foreground">Email</dt>
-                                    <dd className="font-medium">{order.email}</dd>
+                                    <dt className="text-muted-foreground">
+                                        Email
+                                    </dt>
+                                    <dd className="font-medium">
+                                        {order.email}
+                                    </dd>
                                 </div>
                                 <div className="flex justify-between">
-                                    <dt className="text-muted-foreground">Contact</dt>
-                                    <dd className="font-medium">{order.contact ?? '—'}</dd>
+                                    <dt className="text-muted-foreground">
+                                        Contact
+                                    </dt>
+                                    <dd className="font-medium">
+                                        {order.contact ?? '—'}
+                                    </dd>
                                 </div>
                                 {order.user && (
                                     <div className="flex justify-between">
-                                        <dt className="text-muted-foreground">Account</dt>
-                                        <dd className="font-medium">{order.user.name}</dd>
+                                        <dt className="text-muted-foreground">
+                                            Account
+                                        </dt>
+                                        <dd className="font-medium">
+                                            {order.user.name}
+                                        </dd>
                                     </div>
                                 )}
                             </dl>
@@ -106,48 +125,88 @@ export default function Show({ order }: { order: Order }) {
 
                     <Card>
                         <div className="p-6">
-                            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+                            <h3 className="mb-4 text-sm font-semibold tracking-wider text-muted-foreground uppercase">
                                 Order Details
                             </h3>
                             <dl className="space-y-3 text-sm">
                                 <div className="flex justify-between">
-                                    <dt className="text-muted-foreground">Job Type</dt>
-                                    <dd className="font-medium">{order.job_type}</dd>
+                                    <dt className="text-muted-foreground">
+                                        Job Type
+                                    </dt>
+                                    <dd className="font-medium">
+                                        {order.job_type}
+                                    </dd>
                                 </div>
                                 <div className="flex justify-between">
-                                    <dt className="text-muted-foreground">Quantity</dt>
-                                    <dd className="font-medium">{order.quantity}</dd>
+                                    <dt className="text-muted-foreground">
+                                        Quantity
+                                    </dt>
+                                    <dd className="font-medium">
+                                        {order.quantity}
+                                    </dd>
                                 </div>
                                 <div className="flex justify-between">
-                                    <dt className="text-muted-foreground">Specifications</dt>
-                                    <dd className="font-medium">{order.specifications ?? '—'}</dd>
+                                    <dt className="text-muted-foreground">
+                                        Specifications
+                                    </dt>
+                                    <dd className="font-medium">
+                                        {order.specifications ?? '—'}
+                                    </dd>
                                 </div>
                                 <div className="flex justify-between">
-                                    <dt className="text-muted-foreground">Status</dt>
+                                    <dt className="text-muted-foreground">
+                                        Status
+                                    </dt>
                                     <dd>
-                                        <Badge variant={statusVariant[order.status] ?? 'secondary'}>
+                                        <Badge
+                                            variant={
+                                                statusVariant[order.status] ??
+                                                'secondary'
+                                            }
+                                        >
                                             {order.status.replace(/_/g, ' ')}
                                         </Badge>
                                     </dd>
                                 </div>
                                 <div className="flex justify-between">
-                                    <dt className="text-muted-foreground">Quote Amount</dt>
+                                    <dt className="text-muted-foreground">
+                                        Quote Amount
+                                    </dt>
                                     <dd className="font-medium">
-                                        {order.quote_amount ? `$${order.quote_amount}` : 'Not quoted'}
+                                        {order.quote_amount
+                                            ? `$${order.quote_amount}`
+                                            : 'Not quoted'}
                                     </dd>
                                 </div>
-                                <div className='flex justify-between'>
-                                    <dt className='text-muted-foreground'>Payment Status</dt>
-                                    <dd className='font-medium'>
-                                        <Badge variant={order.payment_status === 'paid' ? 'default' : order.payment_status === 'partial' ? 'secondary' : 'destructive'}>
-                                            {(order.payment_status ?? 'unpaid').replace(/_/g, ' ')}
+                                <div className="flex justify-between">
+                                    <dt className="text-muted-foreground">
+                                        Payment Status
+                                    </dt>
+                                    <dd className="font-medium">
+                                        <Badge
+                                            variant={
+                                                order.payment_status === 'paid'
+                                                    ? 'default'
+                                                    : order.payment_status ===
+                                                        'partial'
+                                                      ? 'secondary'
+                                                      : 'destructive'
+                                            }
+                                        >
+                                            {(
+                                                order.payment_status ?? 'unpaid'
+                                            ).replace(/_/g, ' ')}
                                         </Badge>
                                     </dd>
                                 </div>
                                 {order.original_filename && (
                                     <div className="flex justify-between">
-                                        <dt className="text-muted-foreground">Uploaded File</dt>
-                                        <dd className="font-medium">{order.original_filename}</dd>
+                                        <dt className="text-muted-foreground">
+                                            Uploaded File
+                                        </dt>
+                                        <dd className="font-medium">
+                                            {order.original_filename}
+                                        </dd>
                                     </div>
                                 )}
                             </dl>
@@ -158,26 +217,32 @@ export default function Show({ order }: { order: Order }) {
                 {order.requirements && (
                     <Card>
                         <div className="p-6">
-                            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+                            <h3 className="mb-4 text-sm font-semibold tracking-wider text-muted-foreground uppercase">
                                 Requirements
                             </h3>
-                            <p className="whitespace-pre-wrap text-sm">{order.requirements}</p>
+                            <p className="text-sm whitespace-pre-wrap">
+                                {order.requirements}
+                            </p>
                         </div>
                     </Card>
                 )}
 
                 <Card>
-                    <form onSubmit={handleSubmit} className="p-6 space-y-4">
-                        <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+                    <form onSubmit={handleSubmit} className="space-y-4 p-6">
+                        <h3 className="text-sm font-semibold tracking-wider text-muted-foreground uppercase">
                             Update Order
                         </h3>
 
                         <div className="grid gap-4 md:grid-cols-2">
                             <div>
-                                <label className="mb-1 block text-sm font-medium">Status</label>
+                                <label className="mb-1 block text-sm font-medium">
+                                    Status
+                                </label>
                                 <select
                                     value={data.status}
-                                    onChange={(e) => setData('status', e.target.value)}
+                                    onChange={(e) =>
+                                        setData('status', e.target.value)
+                                    }
                                     className="w-full rounded border border-input bg-background px-3 py-2 text-sm"
                                 >
                                     {statusOptions.map((s) => (
@@ -186,42 +251,69 @@ export default function Show({ order }: { order: Order }) {
                                         </option>
                                     ))}
                                 </select>
-                                {errors.status && <p className="mt-1 text-xs text-red-500">{errors.status}</p>}
+                                {errors.status && (
+                                    <p className="mt-1 text-xs text-red-500">
+                                        {errors.status}
+                                    </p>
+                                )}
                             </div>
 
                             <div>
-                                <label className="mb-1 block text-sm font-medium">Quote Amount ($)</label>
+                                <label className="mb-1 block text-sm font-medium">
+                                    Quote Amount ($)
+                                </label>
                                 <input
                                     type="number"
                                     step="0.01"
                                     min="0"
                                     value={data.quote_amount}
-                                    onChange={(e) => setData('quote_amount', e.target.value)}
+                                    onChange={(e) =>
+                                        setData('quote_amount', e.target.value)
+                                    }
                                     className="w-full rounded border border-input bg-background px-3 py-2 text-sm"
                                 />
                                 <div>
-                                    <Label className='mb-1 block text-sm font-medium'>Payment Status</Label>
+                                    <Label className="mb-1 block text-sm font-medium">
+                                        Payment Status
+                                    </Label>
                                     <select
                                         value={data.payment_status}
-                                        onChange={(e) => setData('payment_status', e.target.value)}
-                                        className='w-full rounded border border-input bg-background px-3 py-2 text-sm'
+                                        onChange={(e) =>
+                                            setData(
+                                                'payment_status',
+                                                e.target.value,
+                                            )
+                                        }
+                                        className="w-full rounded border border-input bg-background px-3 py-2 text-sm"
                                     >
-                                        <option value='unpaid'>Unpaid</option>
-                                        <option value='partial'>Partial</option>
-                                        <option value='paid'>Paid</option>
+                                        <option value="unpaid">Unpaid</option>
+                                        <option value="partial">Partial</option>
+                                        <option value="paid">Paid</option>
                                     </select>
-                                    {errors.payment_status && <p className='mt-1 text-xs text-red-500'>{errors.payment_status}</p>}
+                                    {errors.payment_status && (
+                                        <p className="mt-1 text-xs text-red-500">
+                                            {errors.payment_status}
+                                        </p>
+                                    )}
                                 </div>
-                                {errors.quote_amount && <p className="mt-1 text-xs text-red-500">{errors.quote_amount}</p>}
+                                {errors.quote_amount && (
+                                    <p className="mt-1 text-xs text-red-500">
+                                        {errors.quote_amount}
+                                    </p>
+                                )}
                             </div>
                         </div>
 
                         <div>
-                            <label className="mb-1 block text-sm font-medium">Admin Notes</label>
+                            <label className="mb-1 block text-sm font-medium">
+                                Admin Notes
+                            </label>
                             <textarea
                                 rows={3}
                                 value={data.admin_notes}
-                                onChange={(e) => setData('admin_notes', e.target.value)}
+                                onChange={(e) =>
+                                    setData('admin_notes', e.target.value)
+                                }
                                 className="w-full rounded border border-input bg-background px-3 py-2 text-sm"
                                 placeholder="Internal notes about this order..."
                             />

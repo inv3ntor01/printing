@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\CustomerOrderController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LegalController;
 use App\Http\Controllers\PrintController;
@@ -9,7 +10,6 @@ use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\ResumeCustomizationController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\SocialiteController;
-use App\Http\Controllers\CustomerOrderController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');

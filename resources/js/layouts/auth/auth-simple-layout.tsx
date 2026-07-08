@@ -16,13 +16,15 @@ export default function AuthSimpleLayout({
                             href={home()}
                             className="flex flex-col items-center gap-2 font-medium text-foreground hover:text-foreground/80"
                         >
-                            <div className="mb-1 flex h-9 w-9 items-center justify-center rounded-md bg-primary text-primary-foreground text-xs font-bold">
+                            <div className="mb-1 flex h-9 w-9 items-center justify-center rounded-md bg-primary text-xs font-bold text-primary-foreground">
                                 V
                             </div>
                         </Link>
 
                         <div className="space-y-2 text-center">
-                            <h1 className="text-xl font-semibold text-foreground">{title}</h1>
+                            <h1 className="text-xl font-semibold text-foreground">
+                                {title}
+                            </h1>
                             {description && (
                                 <p className="text-center text-sm text-muted-foreground">
                                     {description}

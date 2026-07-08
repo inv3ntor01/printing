@@ -8,9 +8,11 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('orders', function (Blueprint $table) {
-            $table->string('payment_status', 20)->default('unpaid')->after('quote_amount');
-        });
+        if (! Schema::hasColumn('orders', 'payment_status')) {
+            Schema::table('orders', function (Blueprint $table) {
+                $table->string('payment_status', 20)->default('unpaid')->after('quote_amount');
+            });
+        }
     }
 
     public function down(): void

@@ -1,7 +1,7 @@
-import MarketingLayout from '@/layouts/marketing-layout'
-import { FileText, Tag, Image, Truck, Type, CreditCard } from 'lucide-react'
-import { Link } from '@inertiajs/react'
-import { services as servicesRoute } from '@/routes'
+import { Link } from '@inertiajs/react';
+import { FileText, Tag, Image, Truck, Type, CreditCard } from 'lucide-react';
+import MarketingLayout from '@/layouts/marketing-layout';
+import { services as servicesRoute } from '@/routes';
 
 const iconMap: Record<string, React.ReactNode> = {
     fileText: <FileText className="size-8" />,
@@ -10,17 +10,17 @@ const iconMap: Record<string, React.ReactNode> = {
     truck: <Truck className="size-8" />,
     type: <Type className="size-8" />,
     creditCard: <CreditCard className="size-8" />,
-}
+};
 
 interface ServiceItem {
-    title: string
-    description: string
-    features: string[]
-    icon: string
+    title: string;
+    description: string;
+    features: string[];
+    icon: string;
 }
 
 interface PageProps {
-    services: ServiceItem[]
+    services: ServiceItem[];
 }
 
 export default function Services({ services }: PageProps) {
@@ -29,9 +29,12 @@ export default function Services({ services }: PageProps) {
             <section className="bg-white py-20">
                 <div className="mx-auto max-w-7xl px-4">
                     <div className="mb-12">
-                        <h1 className="text-4xl font-bold text-[#0f172a]">Our Services</h1>
+                        <h1 className="text-4xl font-bold text-[#0f172a]">
+                            Our Services
+                        </h1>
                         <p className="mt-2 text-lg text-slate-500">
-                            Quality printing and document solutions tailored to your needs.
+                            Quality printing and document solutions tailored to
+                            your needs.
                         </p>
                     </div>
 
@@ -44,12 +47,21 @@ export default function Services({ services }: PageProps) {
                                 <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-lg bg-[#06b6d4]/10 text-[#06b6d4]">
                                     {iconMap[service.icon]}
                                 </div>
-                                <h2 className="text-xl font-semibold text-[#0f172a]">{service.title}</h2>
-                                <p className="mt-2 text-sm text-slate-500">{service.description}</p>
+                                <h2 className="text-xl font-semibold text-[#0f172a]">
+                                    {service.title}
+                                </h2>
+                                <p className="mt-2 text-sm text-slate-500">
+                                    {service.description}
+                                </p>
                                 <ul className="mt-4 space-y-2">
                                     {service.features.map((feature) => (
-                                        <li key={feature} className="flex items-start gap-2 text-sm text-slate-600">
-                                            <span className="mt-0.5 text-[#06b6d4]">✓</span>
+                                        <li
+                                            key={feature}
+                                            className="flex items-start gap-2 text-sm text-slate-600"
+                                        >
+                                            <span className="mt-0.5 text-[#06b6d4]">
+                                                ✓
+                                            </span>
                                             {feature}
                                         </li>
                                     ))}
@@ -66,5 +78,5 @@ export default function Services({ services }: PageProps) {
                 </div>
             </section>
         </MarketingLayout>
-    )
+    );
 }

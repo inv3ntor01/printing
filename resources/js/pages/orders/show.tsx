@@ -21,10 +21,13 @@ type Order = {
     quoted_at: string | null;
     created_at: string;
     updated_at: string;
-    user: {id: number; name: string; email: string};
+    user: { id: number; name: string; email: string };
 };
 
-const statusVariant: Record<string, 'default' | 'secondary' | 'destructive' | 'outline'> = {
+const statusVariant: Record<
+    string,
+    'default' | 'secondary' | 'destructive' | 'outline'
+> = {
     pending: 'secondary',
     quoted: 'default',
     approved: 'default',
@@ -40,8 +43,7 @@ export default function Show({ order }: { order: Order }) {
             <Head title={`Order #${order.id}`} />
 
             <div className="space-y-6">
-
-                <div className='flex items-center justify-between'>
+                <div className="flex items-center justify-between">
                     <Heading
                         variant="small"
                         title={`Order #${order.id}`}
@@ -55,60 +57,101 @@ export default function Show({ order }: { order: Order }) {
                 <div className="grid gap-6 lg:grid-cols-2">
                     <Card>
                         <div className="p-6">
-                        <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-                            Customer Information
-                        </h3>
-                        <dl className="space-y-3 text-sm">
-                            <div className="flex justify-between">
-                                <dt className="text-muted-foreground">Name</dt>
-                                <dd className="font-medium">{order.name}</dd>
-                            </div>
-                            <div className="flex justify-between">
-                                <dt className="text-muted-foreground">Email</dt>
-                                <dd className="font-medium">{order.email}</dd>
-                            </div>
-                            <div className="flex justify-between">
-                                <dt className="text-muted-foreground">Contact</dt>
-                                <dd className="font-medium">{order.contact ?? '-'}</dd>
-                            </div>
-                            {order.user && (
+                            <h3 className="mb-4 text-sm font-semibold tracking-wider text-muted-foreground uppercase">
+                                Customer Information
+                            </h3>
+                            <dl className="space-y-3 text-sm">
                                 <div className="flex justify-between">
-                                    <dt className="text-muted-foreground">Account</dt>
-                                    <dd className="font-medium">{order.user.name}</dd>
+                                    <dt className="text-muted-foreground">
+                                        Name
+                                    </dt>
+                                    <dd className="font-medium">
+                                        {order.name}
+                                    </dd>
                                 </div>
-                            )}
-                        </dl>
+                                <div className="flex justify-between">
+                                    <dt className="text-muted-foreground">
+                                        Email
+                                    </dt>
+                                    <dd className="font-medium">
+                                        {order.email}
+                                    </dd>
+                                </div>
+                                <div className="flex justify-between">
+                                    <dt className="text-muted-foreground">
+                                        Contact
+                                    </dt>
+                                    <dd className="font-medium">
+                                        {order.contact ?? '-'}
+                                    </dd>
+                                </div>
+                                {order.user && (
+                                    <div className="flex justify-between">
+                                        <dt className="text-muted-foreground">
+                                            Account
+                                        </dt>
+                                        <dd className="font-medium">
+                                            {order.user.name}
+                                        </dd>
+                                    </div>
+                                )}
+                            </dl>
                         </div>
                     </Card>
                     <Card>
                         <div className="p-6">
-                            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+                            <h3 className="mb-4 text-sm font-semibold tracking-wider text-muted-foreground uppercase">
                                 Order Details
                             </h3>
                             <dl className="space-y-3 text-sm">
                                 <div className="flex justify-between">
-                                    <dt className="text-muted-foreground">Job Type</dt>
-                                    <dd className="font-medium">{order.job_type}</dd>
+                                    <dt className="text-muted-foreground">
+                                        Job Type
+                                    </dt>
+                                    <dd className="font-medium">
+                                        {order.job_type}
+                                    </dd>
                                 </div>
                                 <div className="flex justify-between">
-                                    <dt className="text-muted-foreground">Quantity</dt>
-                                    <dd className="font-medium">{order.quantity}</dd>
+                                    <dt className="text-muted-foreground">
+                                        Quantity
+                                    </dt>
+                                    <dd className="font-medium">
+                                        {order.quantity}
+                                    </dd>
                                 </div>
                                 <div className="flex justify-between">
-                                    <dt className="text-muted-foreground">Specifications</dt>
-                                    <dd className="font-medium">{order.specifications ?? '-'}</dd>
+                                    <dt className="text-muted-foreground">
+                                        Specifications
+                                    </dt>
+                                    <dd className="font-medium">
+                                        {order.specifications ?? '-'}
+                                    </dd>
                                 </div>
                                 <div className="flex justify-between">
-                                    <dt className="text-muted-foreground">Status</dt>
+                                    <dt className="text-muted-foreground">
+                                        Status
+                                    </dt>
                                     <dd>
-                                        <Badge variant={statusVariant[order.status] ?? 'secondary'}>
+                                        <Badge
+                                            variant={
+                                                statusVariant[order.status] ??
+                                                'secondary'
+                                            }
+                                        >
                                             {order.status.replace(/_/g, ' ')}
                                         </Badge>
                                     </dd>
                                 </div>
                                 <div className="flex justify-between">
-                                    <dt className="text-muted-foreground">Quote Amount</dt>
-                                    <dd className="font-medium">{order.quote_amount ? `$${order.quote_amount}` : 'Not quoted'}</dd>
+                                    <dt className="text-muted-foreground">
+                                        Quote Amount
+                                    </dt>
+                                    <dd className="font-medium">
+                                        {order.quote_amount
+                                            ? `$${order.quote_amount}`
+                                            : 'Not quoted'}
+                                    </dd>
                                 </div>
                             </dl>
                         </div>
@@ -118,10 +161,12 @@ export default function Show({ order }: { order: Order }) {
                 {order.requirements && (
                     <Card>
                         <div className="p-6">
-                            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+                            <h3 className="mb-4 text-sm font-semibold tracking-wider text-muted-foreground uppercase">
                                 Requirements
                             </h3>
-                            <p className="whitespace-pre-wrap text-sm">{order.requirements}</p>
+                            <p className="text-sm whitespace-pre-wrap">
+                                {order.requirements}
+                            </p>
                         </div>
                     </Card>
                 )}
@@ -129,7 +174,7 @@ export default function Show({ order }: { order: Order }) {
                 {order.file_path && (
                     <Card>
                         <div className="p-6">
-                            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+                            <h3 className="mb-4 text-sm font-semibold tracking-wider text-muted-foreground uppercase">
                                 Uploaded File
                             </h3>
                             <p className="text-sm">{order.original_filename}</p>

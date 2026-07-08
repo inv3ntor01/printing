@@ -1,10 +1,10 @@
 import { Form, Head } from '@inertiajs/react';
+import ServiceController from '@/actions/App/Http/Controllers/Admin/ServiceController';
 import Heading from '@/components/heading';
 import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import ServiceController from '@/actions/App/Http/Controllers/Admin/ServiceController';
 import services from '@/routes/admin/services';
 
 const categories = [
@@ -43,13 +43,18 @@ export default function Edit({ service }: { service: Service }) {
 
                 <Form
                     {...ServiceController.update.form(service.id)}
-                    className="space-y-6 max-w-2xl"
+                    className="max-w-2xl space-y-6"
                 >
                     {({ processing, errors }) => (
                         <>
                             <div className="grid gap-2">
                                 <Label htmlFor="name">Name</Label>
-                                <Input id="name" name="name" required defaultValue={service.name} />
+                                <Input
+                                    id="name"
+                                    name="name"
+                                    required
+                                    defaultValue={service.name}
+                                />
                                 <InputError message={errors.name} />
                             </div>
 
@@ -58,7 +63,7 @@ export default function Edit({ service }: { service: Service }) {
                                 <textarea
                                     id="description"
                                     name="description"
-                                    className="flex min-h-[80px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                                    className="flex min-h-[80px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none"
                                     defaultValue={service.description ?? ''}
                                 />
                                 <InputError message={errors.description} />
@@ -67,7 +72,15 @@ export default function Edit({ service }: { service: Service }) {
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="grid gap-2">
                                     <Label htmlFor="price">Price ($)</Label>
-                                    <Input id="price" name="price" type="number" step="0.01" min="0" required defaultValue={service.price} />
+                                    <Input
+                                        id="price"
+                                        name="price"
+                                        type="number"
+                                        step="0.01"
+                                        min="0"
+                                        required
+                                        defaultValue={service.price}
+                                    />
                                     <InputError message={errors.price} />
                                 </div>
 
@@ -76,12 +89,17 @@ export default function Edit({ service }: { service: Service }) {
                                     <select
                                         id="category"
                                         name="category"
-                                        className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                                        className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none"
                                         defaultValue={service.category ?? ''}
                                     >
-                                        <option value="">Select a category</option>
+                                        <option value="">
+                                            Select a category
+                                        </option>
                                         {categories.map((cat) => (
-                                            <option key={cat.value} value={cat.value}>
+                                            <option
+                                                key={cat.value}
+                                                value={cat.value}
+                                            >
                                                 {cat.label}
                                             </option>
                                         ))}
@@ -92,14 +110,32 @@ export default function Edit({ service }: { service: Service }) {
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="grid gap-2">
-                                    <Label htmlFor="delivery_time">Delivery Time</Label>
-                                    <Input id="delivery_time" name="delivery_time" defaultValue={service.delivery_time ?? ''} />
-                                    <InputError message={errors.delivery_time} />
+                                    <Label htmlFor="delivery_time">
+                                        Delivery Time
+                                    </Label>
+                                    <Input
+                                        id="delivery_time"
+                                        name="delivery_time"
+                                        defaultValue={
+                                            service.delivery_time ?? ''
+                                        }
+                                    />
+                                    <InputError
+                                        message={errors.delivery_time}
+                                    />
                                 </div>
 
                                 <div className="grid gap-2">
-                                    <Label htmlFor="sort_order">Sort Order</Label>
-                                    <Input id="sort_order" name="sort_order" type="number" min="0" defaultValue={service.sort_order} />
+                                    <Label htmlFor="sort_order">
+                                        Sort Order
+                                    </Label>
+                                    <Input
+                                        id="sort_order"
+                                        name="sort_order"
+                                        type="number"
+                                        min="0"
+                                        defaultValue={service.sort_order}
+                                    />
                                     <InputError message={errors.sort_order} />
                                 </div>
                             </div>
@@ -118,7 +154,9 @@ export default function Edit({ service }: { service: Service }) {
                             </div>
 
                             <div className="flex items-center gap-4">
-                                <Button disabled={processing}>Update Service</Button>
+                                <Button disabled={processing}>
+                                    Update Service
+                                </Button>
                             </div>
                         </>
                     )}

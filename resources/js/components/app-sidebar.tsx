@@ -43,7 +43,12 @@ const customerNavItems: NavItem[] = [
 ];
 
 export function AppSidebar() {
-    const { auth } = usePage().props as { auth: { user: { id: number; name: string; email: string } | null; is_admin: boolean } };
+    const { auth } = usePage().props as {
+        auth: {
+            user: { id: number; name: string; email: string } | null;
+            is_admin: boolean;
+        };
+    };
     const isAdmin = auth.is_admin;
 
     return (
@@ -68,7 +73,7 @@ export function AppSidebar() {
                 {!isAdmin && (
                     <div className="px-3 pb-2">
                         <Link href={requestQuote().url}>
-                            <Button className="w-full bg-[#06b6d4] hover:bg-[#0891b2] text-white gap-2">
+                            <Button className="w-full gap-2 bg-[#06b6d4] text-white hover:bg-[#0891b2]">
                                 <Plus className="size-4" />
                                 New Request
                             </Button>
