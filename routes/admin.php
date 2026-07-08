@@ -5,7 +5,7 @@ use App\Http\Controllers\Admin\ServiceController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
-    Route::resource('orders', OrderController::class)->only(['index', 'show']);
+    Route::resource('orders', OrderController::class)->only(['index', 'show', 'update']);
     Route::get('services', [ServiceController::class, 'index'])->middleware('can:service.view')->name('services.index');
     Route::get('services/create', [ServiceController::class, 'create'])->middleware('can:service.create')->name('services.create');
     Route::post('services', [ServiceController::class, 'store'])->middleware('can:service.create')->name('services.store');
