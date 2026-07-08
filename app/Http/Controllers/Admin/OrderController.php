@@ -7,10 +7,11 @@ use App\Models\Order;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class OrderController extends Controller
 {
-    public function index()
+    public function index(): Response
     {
         $orders = Order::latest()->paginate(10);
 
@@ -19,7 +20,7 @@ class OrderController extends Controller
         ]);
     }
 
-    public function show(Order $order)
+    public function show(Order $order): Response
     {
         return Inertia::render('admin/orders/show', [
             'order' => $order->load('user'),

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -56,7 +57,7 @@ class DashboardController extends Controller
         ]);
     }
 
-    private function customerDashboard($user): Response
+    private function customerDashboard(User $user): Response
     {
         $progressMap = [
             'pending' => 10,
