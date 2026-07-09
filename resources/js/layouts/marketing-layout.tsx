@@ -1,5 +1,5 @@
 import { Head, Link, router, usePage } from '@inertiajs/react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import type { ReactNode } from 'react';
 import {
@@ -61,6 +61,57 @@ export default function MarketingLayout({ children }: MarketingLayoutProps) {
                             Contact Us
                         </Link>
                     </nav>
+
+                    <button
+                        onClick={() => setMenuOpen(!menuOpen)}
+                        className="flex items-center md:hidden"
+                        aria-label="Toggle navigation menu"
+                    >
+                        {menuOpen ? (
+                            <X className="size-6" />
+                        ) : (
+                            <Menu className="size-6" />
+                        )}
+                    </button>
+
+                    {menuOpen && (
+                        <>
+                            <div
+                                className="fixed inset-0 z-30 bg-black/50 md:hidden"
+                                onClick={() => setMenuOpen(false)}
+                            />
+                            <div className="absolute top-full left-0 right-0 z-40 flex flex-col gap-2 border-t border-border bg-sidebar p-4 shadow-lg md:hidden">
+                                <Link
+                                    href={servicesRoute().url}
+                                    className="rounded px-3 py-2 text-sm text-muted-foreground hover:bg-accent hover:text-white"
+                                    onClick={() => setMenuOpen(false)}
+                                >
+                                    Services
+                                </Link>
+                                <Link
+                                    href={resumeCustomization().url}
+                                    className="rounded px-3 py-2 text-sm text-muted-foreground hover:bg-accent hover:text-white"
+                                    onClick={() => setMenuOpen(false)}
+                                >
+                                    Resume
+                                </Link>
+                                <Link
+                                    href={requestQuote().url}
+                                    className="rounded px-3 py-2 text-sm text-muted-foreground hover:bg-accent hover:text-white"
+                                    onClick={() => setMenuOpen(false)}
+                                >
+                                    Get a Quote
+                                </Link>
+                                <Link
+                                    href={contactUs().url}
+                                    className="rounded px-3 py-2 text-sm text-muted-foreground hover:bg-accent hover:text-white"
+                                    onClick={() => setMenuOpen(false)}
+                                >
+                                    Contact Us
+                                </Link>
+                            </div>
+                        </>
+                    )}
 
                     {auth.user ? (
                         <div className="relative">

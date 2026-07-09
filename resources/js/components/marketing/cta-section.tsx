@@ -21,16 +21,16 @@ export default function CtaSection({ cta }: Props) {
                     {cta.headline}
                 </h2>
                 <p className="mt-4 text-slate-300">{cta.subtext}</p>
-                <div className="mt-8 flex justify-center gap-4">
+                <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
                     <Link
                         href={cta.primaryHref}
-                        className="rounded bg-[#06b6d4] px-6 py-3 text-sm font-semibold text-white hover:bg-[#0891b2]"
+                        className="inline-block w-full rounded bg-[#06b6d4] px-6 py-3 text-center text-sm font-semibold text-white hover:bg-[#0891b2] sm:w-auto"
                     >
                         {cta.primaryLabel}
                     </Link>
                     <Link
                         href={cta.secondaryHref}
-                        className="rounded border border-white/30 px-6 py-3 text-sm font-semibold text-white hover:bg-white/10"
+                        className="inline-block w-full rounded border border-white/30 px-6 py-3 text-center text-sm font-semibold text-white hover:bg-white/10 sm:w-auto"
                     >
                         {cta.secondaryLabel}
                     </Link>

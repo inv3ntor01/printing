@@ -29,10 +29,14 @@ class QuoteController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        if (! $request->user()) {
+            return Redirect::back()->with('error', 'You must be logged in to submit a quote request.');
+        }
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'contact' => 'nullable|string|max:255',
+            'contact' => 'required|string|regex:/^(09|\+639|639)\d{9}$/|max:13',
             'job_type' => 'required|string|max:255',
             'quantity' => 'required|integer|min:1',
             'specifications' => 'nullable|string|max:255',

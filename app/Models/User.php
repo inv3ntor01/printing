@@ -35,6 +35,13 @@ class User extends Authenticatable implements PasskeyUser
     /** @use HasFactory<UserFactory> */
     use HasFactory, HasRoles, Notifiable, PasskeyAuthenticatable, TwoFactorAuthenticatable;
 
+    protected $appends = ['is_admin'];
+
+    public function getIsAdminAttribute(): bool
+    {
+        return $this->hasRole('admin');
+    }
+
     /**
      * Get the attributes that should be cast.
      *

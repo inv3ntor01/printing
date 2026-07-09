@@ -19,6 +19,7 @@ class CustomerOrderController extends Controller
 
         return Inertia::render('orders/show', [
             'order' => $order,
+            'comments' => $order->comments()->with('user.roles')->latest()->get(),
         ]);
     }
 }

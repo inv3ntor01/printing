@@ -52,18 +52,18 @@ const statusVariant: Record<
 
 function AdminDashboard({ stats, recent_orders, status_counts }: AdminProps) {
     return (
-        <div className="flex h-full flex-1 flex-col gap-6 overflow-x-auto rounded-xl p-4">
+        <div className="flex min-h-0 flex-1 flex-col gap-6 overflow-y-auto rounded-xl p-4 sm:p-6 lg:p-8">
             <Heading
                 title="Dashboard"
                 description="Overview of your printing business"
             />
 
-            <div className="grid gap-4 md:grid-cols-5">
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
                 <Card className="flex flex-col gap-1 p-4">
                     <span className="text-xs tracking-wider text-muted-foreground uppercase">
                         Total Orders
                     </span>
-                    <span className="text-2xl font-bold">
+                    <span className="text-xl font-bold md:text-2xl">
                         {stats.total_orders}
                     </span>
                 </Card>
@@ -71,7 +71,7 @@ function AdminDashboard({ stats, recent_orders, status_counts }: AdminProps) {
                     <span className="text-xs tracking-wider text-muted-foreground uppercase">
                         Pending
                     </span>
-                    <span className="text-2xl font-bold text-amber-600">
+                    <span className="text-xl font-bold text-amber-600 md:text-2xl">
                         {stats.pending_orders}
                     </span>
                 </Card>
@@ -79,7 +79,7 @@ function AdminDashboard({ stats, recent_orders, status_counts }: AdminProps) {
                     <span className="text-xs tracking-wider text-muted-foreground uppercase">
                         Quoted
                     </span>
-                    <span className="text-2xl font-bold text-sky-600">
+                    <span className="text-xl font-bold text-sky-600 md:text-2xl">
                         {stats.quoted_orders}
                     </span>
                 </Card>
@@ -87,15 +87,15 @@ function AdminDashboard({ stats, recent_orders, status_counts }: AdminProps) {
                     <span className="text-xs tracking-wider text-muted-foreground uppercase">
                         In Production
                     </span>
-                    <span className="text-2xl font-bold text-violet-600">
+                    <span className="text-xl font-bold text-violet-600 md:text-2xl">
                         {stats.in_production}
                     </span>
                 </Card>
-                <Card className="flex flex-col gap-1 border-emerald-200 p-4">
+                <Card className="flex flex-col gap-1 border-emerald-200 p-4 sm:col-span-full md:col-span-1">
                     <span className="text-xs tracking-wider text-muted-foreground uppercase">
                         Revenue
                     </span>
-                    <span className="text-2xl font-bold text-emerald-600">
+                    <span className="text-xl font-bold text-emerald-600 md:text-2xl">
                         ${Number(stats.revenue).toLocaleString()}
                     </span>
                 </Card>
@@ -247,7 +247,7 @@ function CustomerDashboard({ orders, active_requests }: CustomerProps) {
     };
 
     return (
-        <div className="flex h-full flex-1 flex-col gap-6 overflow-x-auto rounded-xl p-4">
+        <div className="flex min-h-0 flex-1 flex-col gap-6 overflow-y-auto rounded-xl p-4 sm:p-6 lg:p-8">
             <section>
                 <div className="mb-6 flex items-center justify-between">
                     <h3 className="text-lg font-semibold">

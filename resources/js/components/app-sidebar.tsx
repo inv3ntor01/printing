@@ -12,6 +12,7 @@ import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
+    useSidebar,
 } from '@/components/ui/sidebar';
 import { dashboard, requestQuote } from '@/routes';
 import type { NavItem } from '@/types';
@@ -50,6 +51,8 @@ export function AppSidebar() {
         };
     };
     const isAdmin = auth.is_admin;
+    const { state } = useSidebar();
+    const isCollapsed = state === 'collapsed';
 
     return (
         <Sidebar collapsible="icon" variant="inset">
@@ -57,7 +60,7 @@ export function AppSidebar() {
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
-                            <Link href={dashboard()} prefetch>
+                            <Link href="/" prefetch>
                                 <AppLogo />
                             </Link>
                         </SidebarMenuButton>
@@ -71,11 +74,11 @@ export function AppSidebar() {
 
             <SidebarFooter>
                 {!isAdmin && (
-                    <div className="px-3 pb-2">
+                    <div className={`pb-2 ${isCollapsed ? 'flex justify-center' : 'px-3'}`}>
                         <Link href={requestQuote().url}>
-                            <Button className="w-full gap-2 bg-[#06b6d4] text-white hover:bg-[#0891b2]">
+                            <Button className={`gap-2 bg-[#06b6d4] text-white hover:bg-[#0891b2] ${isCollapsed ? 'size-8 p-0' : 'w-full'}`}>
                                 <Plus className="size-4" />
-                                New Request
+                                {isCollapsed ? '' : 'New Request'}
                             </Button>
                         </Link>
                     </div>

@@ -5,6 +5,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CustomerOrderController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LegalController;
+use App\Http\Controllers\OrderCommentController;
 use App\Http\Controllers\PrintController;
 use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\ResumeCustomizationController;
@@ -33,6 +34,8 @@ Route::prefix('auth')->middleware('guest')->group(function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('orders/{order}', [CustomerOrderController::class, 'show'])->name('orders.show');
+    Route::get('orders/{order}/comments', [OrderCommentController::class, 'index'])->name('orders.comments.index');
+    Route::post('orders/{order}/comments', [OrderCommentController::class, 'store'])->name('orders.comments.store');
 });
 
 require __DIR__.'/settings.php';

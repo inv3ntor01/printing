@@ -1,4 +1,6 @@
 import { Head, Link, useForm } from '@inertiajs/react';
+import { FileText } from 'lucide-react';
+import CommentSection from '@/components/comment-section';
 import Heading from '@/components/heading';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -13,6 +15,10 @@ type Order = {
     job_type: string;
     quantity: number;
     specifications: string | null;
+    paper_stock: string | null;
+    width: string | number | null;
+    height: string | number | null;
+    pages: string | number | null;
     file_path: string | null;
     original_filename: string | null;
     requirements: string | null;
@@ -25,6 +31,9 @@ type Order = {
     updated_at: string;
     user: { id: number; name: string; email: string } | null;
 };
+
+const isImageFile = (filename: string) =>
+    /\.(png|jpe?g|gif|webp|svg|bmp|tiff?)$/i.test(filename);
 
 const statusOptions = [
     'pending',
@@ -49,7 +58,14 @@ const statusVariant: Record<
     cancelled: 'destructive',
 };
 
-export default function Show({ order }: { order: Order }) {
+interface Comment {
+    id: number;
+    user: { id: number; name: string };
+    body: string;
+    created_at: string;
+}
+
+export default function Show({ order, comments }: { order: Order; comments: Comment[] }) {
     const { data, setData, put, processing, errors } = useForm({
         status: order.status,
         admin_notes: order.admin_notes ?? '',
@@ -66,15 +82,15 @@ export default function Show({ order }: { order: Order }) {
         <>
             <Head title={`Order #${order.id}`} />
 
-            <div className="space-y-6">
-                <div className="flex items-center justify-between">
+            <div className="space-y-6 p-4 sm:p-6 lg:p-8">
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                     <Heading
                         variant="small"
                         title={`Order #${order.id}`}
                         description={`Submitted ${new Date(order.created_at).toLocaleString()}`}
                     />
-                    <Link href="/admin/orders">
-                        <Button variant="outline">Back to Orders</Button>
+                    <Link href="/admin/orders" className="shrink-0">
+                        <Button variant="outline" className="w-full sm:w-auto">Back to Orders</Button>
                     </Link>
                 </div>
 
@@ -199,33 +215,113 @@ export default function Show({ order }: { order: Order }) {
                                         </Badge>
                                     </dd>
                                 </div>
-                                {order.original_filename && (
-                                    <div className="flex justify-between">
-                                        <dt className="text-muted-foreground">
-                                            Uploaded File
-                                        </dt>
-                                        <dd className="font-medium">
-                                            {order.original_filename}
-                                        </dd>
-                                    </div>
-                                )}
                             </dl>
                         </div>
                     </Card>
                 </div>
 
-                {order.requirements && (
+                <div className="grid gap-6 lg:grid-cols-2">
+                    {(order.paper_stock || order.width || order.height || order.pages) && (
+                        <Card>
+                            <div className="p-6">
+                                <h3 className="mb-4 text-sm font-semibold tracking-wider text-muted-foreground uppercase">
+                                    Job Specifications
+                                </h3>
+                                <dl className="space-y-3 text-sm">
+                                    {order.paper_stock && (
+                                        <div className="flex justify-between">
+                                            <dt className="text-muted-foreground">
+                                                Paper Stock
+                                            </dt>
+                                            <dd className="font-medium">
+                                                {order.paper_stock}
+                                            </dd>
+                                        </div>
+                                    )}
+                                    {(order.width || order.height) && (
+                                        <div className="flex justify-between">
+                                            <dt className="text-muted-foreground">
+                                                Dimensions
+                                            </dt>
+                                            <dd className="font-medium">
+                                                {order.width ?? '?'}mm × {order.height ?? '?'}mm
+                                            </dd>
+                                        </div>
+                                    )}
+                                    {order.pages && (
+                                        <div className="flex justify-between">
+                                            <dt className="text-muted-foreground">
+                                                Pages / Sides
+                                            </dt>
+                                            <dd className="font-medium">
+                                                {order.pages}
+                                            </dd>
+                                        </div>
+                                    )}
+                                </dl>
+                            </div>
+                        </Card>
+                    )}
+
+                    {order.requirements && (
+                        <Card>
+                            <div className="p-6">
+                                <h3 className="mb-4 text-sm font-semibold tracking-wider text-muted-foreground uppercase">
+                                    Requirements
+                                </h3>
+                                <p className="text-sm whitespace-pre-wrap">
+                                    {order.requirements}
+                                </p>
+                            </div>
+                        </Card>
+                    )}
+
+                    {order.file_path && (
+                        <Card>
+                            <div className="p-6">
+                                <h3 className="mb-4 text-sm font-semibold tracking-wider text-muted-foreground uppercase">
+                                    Uploaded File
+                                </h3>
+                                {order.original_filename && isImageFile(order.original_filename) ? (
+                                    <a
+                                        href={`/storage/${order.file_path}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <img
+                                            src={`/storage/${order.file_path}`}
+                                            alt={order.original_filename ?? 'Uploaded file'}
+                                            className="max-h-64 w-full rounded-lg border object-contain"
+                                        />
+                                    </a>
+                                ) : (
+                                    <div className="flex items-center gap-3 rounded-lg border border-dashed p-4">
+                                        <FileText className="size-8 text-muted-foreground" />
+                                        <div>
+                                            <p className="text-sm font-medium">
+                                                {order.original_filename}
+                                            </p>
+                                            <a
+                                                href={`/storage/${order.file_path}`}
+                                                className="text-sm text-[#06b6d4] hover:underline"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                Download File
+                                            </a>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        </Card>
+                    )}
+
                     <Card>
                         <div className="p-6">
-                            <h3 className="mb-4 text-sm font-semibold tracking-wider text-muted-foreground uppercase">
-                                Requirements
-                            </h3>
-                            <p className="text-sm whitespace-pre-wrap">
-                                {order.requirements}
-                            </p>
+                            <CommentSection comments={comments} orderId={order.id} />
                         </div>
                     </Card>
-                )}
+                </div>
 
                 <Card>
                     <form onSubmit={handleSubmit} className="space-y-4 p-6">

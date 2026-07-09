@@ -58,7 +58,7 @@ export default function Create() {
                                 <InputError message={errors.description} />
                             </div>
 
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                                 <div className="grid gap-2">
                                     <Label htmlFor="price">Price ($)</Label>
                                     <Input
@@ -96,7 +96,7 @@ export default function Create() {
                                 </div>
                             </div>
 
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                                 <div className="grid gap-2">
                                     <Label htmlFor="delivery_time">
                                         Delivery Time

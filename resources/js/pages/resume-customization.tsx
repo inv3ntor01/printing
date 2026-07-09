@@ -90,24 +90,24 @@ export default function ResumeCustomization() {
         <MarketingLayout>
             <section className="bg-[#0f172a] py-20">
                 <div className="mx-auto max-w-7xl px-4 text-center">
-                    <h1 className="text-5xl font-bold text-white">
+                    <h1 className="text-3xl font-bold text-white md:text-5xl">
                         Resume Customization
                     </h1>
-                    <p className="mx-auto mt-4 max-w-2xl text-lg text-slate-400">
+                    <p className="mx-auto mt-4 max-w-2xl text-base text-slate-400 md:text-lg">
                         Your career deserves more than a generic template. We
                         engineer resumes that pass algorithms, impress
                         recruiters, and land interviews.
                     </p>
-                    <div className="mt-8 flex flex-wrap justify-center gap-4">
-                        <span className="inline-flex items-center gap-1.5 rounded-full border border-[#06b6d4]/30 bg-[#06b6d4]/10 px-4 py-1.5 text-sm font-medium text-[#06b6d4]">
+                    <div className="mt-8 flex flex-wrap justify-center gap-2 md:gap-4">
+                        <span className="inline-flex items-center gap-1.5 rounded-full border border-[#06b6d4]/30 bg-[#06b6d4]/10 px-3 py-1.5 text-xs font-medium text-[#06b6d4] md:px-4 md:text-sm">
                             <CheckCircle className="size-4" />
                             ATS-Optimized
                         </span>
-                        <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5 text-sm font-medium text-emerald-400">
+                        <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 text-xs font-medium text-emerald-400 md:px-4 md:text-sm">
                             <CheckCircle className="size-4" />
                             Expert Writers
                         </span>
-                        <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-4 py-1.5 text-sm font-medium text-amber-400">
+                        <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1.5 text-xs font-medium text-amber-400 md:px-4 md:text-sm">
                             <CheckCircle className="size-4" />
                             48-Hour Turnaround
                         </span>
@@ -118,10 +118,10 @@ export default function ResumeCustomization() {
             <section className="bg-white py-20">
                 <div className="mx-auto max-w-7xl px-4">
                     <div className="mb-12 text-center">
-                        <h2 className="text-3xl font-bold text-[#0f172a]">
+                        <h2 className="text-2xl font-bold text-[#0f172a] md:text-3xl">
                             Our Resume Services
                         </h2>
-                        <p className="mt-2 text-lg text-slate-500">
+                        <p className="mt-2 text-base text-slate-500 md:text-lg">
                             End-to-end solutions for career advancement and
                             professional branding.
                         </p>

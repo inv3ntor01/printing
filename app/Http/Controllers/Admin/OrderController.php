@@ -24,6 +24,7 @@ class OrderController extends Controller
     {
         return Inertia::render('admin/orders/show', [
             'order' => $order->load('user'),
+            'comments' => $order->comments()->with('user.roles')->latest()->get(),
         ]);
     }
 

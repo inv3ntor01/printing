@@ -1,6 +1,7 @@
-import { useForm, usePage } from '@inertiajs/react';
+import { Link, useForm, usePage } from '@inertiajs/react';
 import { MapPin, Phone, Upload, Navigation } from 'lucide-react';
 import MarketingLayout from '@/layouts/marketing-layout';
+import { login } from '@/routes';
 
 interface Props {
     jobTypes: string[];
@@ -81,10 +82,10 @@ export default function RequestQuote({ jobTypes }: Props) {
                     <div className="grid gap-12 lg:grid-cols-12">
                         <div className="lg:col-span-7">
                             <div className="mb-8">
-                                <h1 className="text-4xl font-bold text-[#0f172a]">
+                                <h1 className="text-2xl font-bold text-[#0f172a] md:text-4xl">
                                     Request a Technical Quote
                                 </h1>
-                                <p className="mt-2 text-lg text-black">
+                                <p className="mt-2 text-base text-black md:text-lg">
                                     Provide your technical specifications below
                                     for a precise engineering estimate from our
                                     production specialists.
@@ -97,17 +98,32 @@ export default function RequestQuote({ jobTypes }: Props) {
                                 encType="multipart/form-data"
                             >
                                 {!auth.user && (
+                                    <div className="rounded-lg border border-amber-200 bg-amber-50 p-5">
+                                        <p className="text-sm text-amber-800">
+                                            You must be{' '}
+                                            <Link
+                                                href={login().url}
+                                                className="font-semibold text-amber-900 underline hover:no-underline"
+                                            >
+                                                logged in
+                                            </Link>{' '}
+                                            to submit a quote request.
+                                        </p>
+                                    </div>
+                                )}
+
+                                {auth.user && (
                                     <div className="rounded-lg border border-slate-200 bg-slate-50 p-5">
                                         <h2 className="mb-4 text-sm font-semibold tracking-wider text-black uppercase">
                                             Contact Information
                                         </h2>
-                                        <div className="grid gap-4 md:grid-cols-3">
+                                        <div className="grid gap-4 sm:grid-cols-3">
                                             <div>
                                                 <label
                                                     htmlFor="quote-name"
                                                     className="mb-1 block text-sm font-medium text-black"
                                                 >
-                                                    Full Name
+                                                    Full Name <span className="text-red-500">*</span>
                                                 </label>
                                                 <input
                                                     id="quote-name"
@@ -133,7 +149,7 @@ export default function RequestQuote({ jobTypes }: Props) {
                                                     htmlFor="quote-email"
                                                     className="mb-1 block text-sm font-medium text-black"
                                                 >
-                                                    Email
+                                                    Email <span className="text-red-500">*</span>
                                                 </label>
                                                 <input
                                                     id="quote-email"
@@ -159,7 +175,7 @@ export default function RequestQuote({ jobTypes }: Props) {
                                                     htmlFor="quote-contact"
                                                     className="mb-1 block text-sm font-medium text-black"
                                                 >
-                                                    Contact Number
+                                                    Contact Number <span className="text-red-500">*</span>
                                                 </label>
                                                 <input
                                                     id="quote-contact"
@@ -171,6 +187,8 @@ export default function RequestQuote({ jobTypes }: Props) {
                                                             e.target.value,
                                                         )
                                                     }
+                                                    required
+                                                    placeholder="e.g. 09171234567"
                                                     className="w-full rounded border border-slate-300 px-3 py-2 text-sm text-black focus:border-[#06b6d4] focus:outline-none"
                                                 />
                                             </div>
@@ -183,8 +201,8 @@ export default function RequestQuote({ jobTypes }: Props) {
                                         htmlFor="quote-job-type"
                                         className="mb-1 block text-sm font-medium text-black"
                                     >
-                                        Job Type
-                                    </label>
+                                        Job Type <span className="text-red-500">*</span>
+                                        </label>
                                     <select
                                         id="quote-job-type"
                                         value={data.job_type}
@@ -215,10 +233,10 @@ export default function RequestQuote({ jobTypes }: Props) {
                                         htmlFor="quote-quantity"
                                         className="mb-1 block text-sm font-medium text-black"
                                     >
-                                        Quantity
-                                    </label>
-                                    <input
-                                        id="quote-quantity"
+                                        Quantity <span className="text-red-500">*</span>
+                                        </label>
+                                        <input
+                                            id="quote-quantity"
                                         type="number"
                                         min="1"
                                         value={data.quantity}
@@ -258,7 +276,7 @@ export default function RequestQuote({ jobTypes }: Props) {
                                     />
                                 </div>
 
-                                <div className="grid gap-4 md:grid-cols-3">
+                                <div className="grid gap-4 sm:grid-cols-3">
                                     <div>
                                         <label
                                             htmlFor="quote-width"
@@ -397,7 +415,7 @@ export default function RequestQuote({ jobTypes }: Props) {
 
                                 <button
                                     type="submit"
-                                    disabled={processing}
+                                    disabled={processing || !auth.user}
                                     className="rounded bg-[#0f172a] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1e293b] disabled:cursor-not-allowed disabled:opacity-60"
                                 >
                                     {processing

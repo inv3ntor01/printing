@@ -35,14 +35,14 @@ export default function Index({
             <Head title="Services" />
 
             <div className="space-y-6">
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                     <Heading
                         variant="small"
                         title="Services"
                         description="Manage your printing service catalog"
                     />
-                    <Link href={services.create()}>
-                        <Button>Add Service</Button>
+                    <Link href={services.create()} className="shrink-0">
+                        <Button className="w-full sm:w-auto">Add Service</Button>
                     </Link>
                 </div>
 

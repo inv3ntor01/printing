@@ -29,10 +29,10 @@ export default function Services({ services }: PageProps) {
             <section className="bg-white py-20">
                 <div className="mx-auto max-w-7xl px-4">
                     <div className="mb-12">
-                        <h1 className="text-4xl font-bold text-[#0f172a]">
+                        <h1 className="text-2xl font-bold text-[#0f172a] md:text-4xl">
                             Our Services
                         </h1>
-                        <p className="mt-2 text-lg text-slate-500">
+                        <p className="mt-2 text-base text-slate-500 md:text-lg">
                             Quality printing and document solutions tailored to
                             your needs.
                         </p>

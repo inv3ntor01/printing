@@ -44,7 +44,7 @@ export default function ContactUs({ jobTypes }: Props) {
                                 />
                             </svg>
                         </div>
-                        <h1 className="text-3xl font-bold text-[#0f172a]">
+                        <h1 className="text-2xl font-bold text-[#0f172a] md:text-3xl">
                             Message Sent!
                         </h1>
                         <p className="mt-3 text-slate-500">
@@ -62,10 +62,10 @@ export default function ContactUs({ jobTypes }: Props) {
             <section className="bg-white py-16">
                 <div className="mx-auto max-w-7xl px-4">
                     <div className="mb-10">
-                        <h1 className="text-4xl font-bold text-[#0f172a]">
+                        <h1 className="text-2xl font-bold text-[#0f172a] md:text-4xl">
                             Contact Us
                         </h1>
-                        <p className="mt-2 text-lg text-slate-500">
+                        <p className="mt-2 text-base text-slate-500 md:text-lg">
                             Send us a message or request a quote. We'll get back
                             to you with a price and turnaround time.
                         </p>
