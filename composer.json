@@ -11,16 +11,13 @@
     "require": {
         "php": "^8.3",
         "inertiajs/inertia-laravel": "^3.0",
+        "laravel/boost": "^2.4",
         "laravel/chisel": "^0.1.0",
         "laravel/fortify": "^1.37.2",
         "laravel/framework": "^13.17",
-        "laravel/horizon": "^5.47",
-        "laravel/reverb": "^1.10",
-        "laravel/scout": "^11.3",
         "laravel/tinker": "^3.0",
         "laravel/wayfinder": "^0.1.14",
         "league/flysystem-aws-s3-v3": "^3.35",
-        "meilisearch/meilisearch-php": "^1.16",
         "spatie/laravel-permission": "^8.3"
     },
     "require-dev": {

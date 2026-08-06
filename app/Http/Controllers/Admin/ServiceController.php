@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\StoreServiceRequest;
-use App\Http\Requests\Admin\UpdateServiceRequest;
+use App\Http\Requests\Admin\ServiceRequest;
 use App\Models\Service;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
@@ -26,7 +25,7 @@ class ServiceController extends Controller
         return Inertia::render('admin/services/create');
     }
 
-    public function store(StoreServiceRequest $request): RedirectResponse
+    public function store(ServiceRequest $request): RedirectResponse
     {
         Service::create($request->validated());
 
@@ -42,7 +41,7 @@ class ServiceController extends Controller
         ]);
     }
 
-    public function update(UpdateServiceRequest $request, Service $service): RedirectResponse
+    public function update(ServiceRequest $request, Service $service): RedirectResponse
     {
         $service->update($request->validated());
 

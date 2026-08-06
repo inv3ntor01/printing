@@ -181,16 +181,16 @@ export default function MarketingLayout({ children }: MarketingLayoutProps) {
                             </h3>
                             <ul className="space-y-2 text-sm">
                                 <li>
-                                    <Link href="#">About Us</Link>
+                                    <a href="#">About Us</a>
                                 </li>
                                 <li>
-                                    <Link href="#">Sustainability</Link>
+                                    <a href="#">Sustainability</a>
                                 </li>
                                 <li>
-                                    <Link href="#">Technology Partners</Link>
+                                    <a href="#">Technology Partners</a>
                                 </li>
                                 <li>
-                                    <Link href="#">Careers</Link>
+                                    <a href="#">Careers</a>
                                 </li>
                             </ul>
                         </div>

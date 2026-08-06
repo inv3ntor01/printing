@@ -58,7 +58,7 @@ RUN apk add --no-cache nodejs npm
 WORKDIR /var/www/html
 COPY --chown=www-data:www-data . .
 RUN --mount=type=secret,id=dotenv,target=/var/www/html/.env \
-    npm ci && npm run build:ssr
+    npm ci && npm run build
 
 ############################################
 # Production Image
@@ -68,17 +68,11 @@ FROM base AS deploy
 # Switch to root to fix permissions
 USER root
 
-# Inertia SSR runs `node bootstrap/ssr/ssr.js` from this production image, so
-# Node.js is required here. Non-SSR apps serve pre-built static assets and never
-# run Node, so it's omitted to keep the image lean.
-RUN apk add --no-cache nodejs npm
-
 # Copy application files
 COPY --chown=www-data:www-data . /var/www/html
 
 # Overlay assets built inside Docker (correct VITE_* baking, no host pollution)
 COPY --from=assets --chown=www-data:www-data /var/www/html/public/build /var/www/html/public/build
-COPY --from=assets --chown=www-data:www-data /var/www/html/bootstrap/ssr /var/www/html/bootstrap/ssr
 
 # Ensure storage and bootstrap are owned by www-data
 # Sub-paths will be handled by K8s volume mounts

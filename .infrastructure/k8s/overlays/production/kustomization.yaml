@@ -5,7 +5,6 @@ namespace: printing-production
 
 resources:
   - app-volumes.yaml
-  - ssr-deployment.yaml
   - minio-volumes.yaml
   - meilisearch-volumes.yaml
   - postgres-volumes.yaml
