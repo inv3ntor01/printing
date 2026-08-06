@@ -10,11 +10,9 @@
     "localTld": null,
     "additionalExtensions": [],
     "features": [
-        "scheduler",
-        "ssr",
-        "scout",
-        "horizon",
-        "reverb"
+        "boost",
+        "mcp",
+        "ai"
     ],
     "scoutDriver": "meilisearch",
     "scoutDrivers": [],

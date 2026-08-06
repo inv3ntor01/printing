@@ -15,22 +15,6 @@ class RoleSeeder extends Seeder
             'service.create',
             'service.edit',
             'service.delete',
-            'order.view',
-            'order.create',
-            'order.edit',
-            'order.delete',
-            'order.approve',
-            'file.upload',
-            'file.download',
-            'file.delete',
-            'user.view',
-            'user.create',
-            'user.edit',
-            'user.delete',
-            'report.view',
-            'report.export',
-            'settings.view',
-            'settings.edit',
         ];
 
         foreach ($permissions as $permission) {
@@ -39,26 +23,5 @@ class RoleSeeder extends Seeder
 
         $admin = Role::firstOrCreate(['name' => 'admin']);
         $admin->syncPermissions($permissions);
-
-        $staff = Role::firstOrCreate(['name' => 'staff']);
-        $staff->syncPermissions([
-            'service.view',
-            'service.edit',
-            'order.view',
-            'order.edit',
-            'order.approve',
-            'file.upload',
-            'file.download',
-            'report.view',
-        ]);
-
-        $customer = Role::firstOrCreate(['name' => 'customer']);
-        $customer->syncPermissions([
-            'service.view',
-            'order.create',
-            'order.view',
-            'file.upload',
-            'file.download',
-        ]);
     }
 }

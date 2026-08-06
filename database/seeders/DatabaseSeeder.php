@@ -17,19 +17,5 @@ class DatabaseSeeder extends Seeder
                 'email' => 'admin@printing.test',
             ])->assignRole('admin');
         }
-
-        if (User::where('email', 'staff@printing.test')->doesntExist()) {
-            User::factory()->create([
-                'name' => 'Staff User',
-                'email' => 'staff@printing.test',
-            ])->assignRole('staff');
-        }
-
-        if (User::where('email', 'customer@printing.test')->doesntExist()) {
-            User::factory()->create([
-                'name' => 'Customer User',
-                'email' => 'customer@printing.test',
-            ])->assignRole('customer');
-        }
     }
 }
