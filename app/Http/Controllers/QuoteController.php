@@ -57,7 +57,7 @@ class QuoteController extends Controller
         }
 
         Order::create([
-            'user_id' => $request->user()?->id,
+            'user_id' => $request->user()->id,
             'name' => $validated['name'],
             'email' => $validated['email'],
             'contact' => $validated['contact'],
