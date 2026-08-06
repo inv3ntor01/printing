@@ -1,4 +1,4 @@
-import { router, usePage } from '@inertiajs/react';
+import { router } from '@inertiajs/react';
 import { useState } from 'react';
 
 interface Comment {
@@ -14,15 +14,15 @@ interface Props {
 }
 
 export default function CommentSection({ comments, orderId }: Props) {
-    const { auth } = usePage().props as {
-        auth: { user: { id: number; name: string } };
-    };
     const [body, setBody] = useState('');
     const [submitting, setSubmitting] = useState(false);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        if (!body.trim()) return;
+
+        if (!body.trim()) {
+            return;
+        }
 
         setSubmitting(true);
         router.post(

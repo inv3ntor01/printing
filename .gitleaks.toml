@@ -1,0 +1,8 @@
+# Local dev CA key for the k3s traefik ingress on the dev machine only.
+# It signs *.kube certificates trusted solely by this machine's trust store;
+# no production value. Allowlisted so gitleaks can flag real secrets.
+[extend]
+useDefault = true
+
+[allowlist]
+paths = ["n8n-k8s/traefik-restore.yaml"]

@@ -1,5 +1,5 @@
 import { Head, Link } from '@inertiajs/react';
-import { FileImage, FileText } from 'lucide-react';
+import { FileText } from 'lucide-react';
 import CommentSection from '@/components/comment-section';
 import Heading from '@/components/heading';
 import { Badge } from '@/components/ui/badge';
